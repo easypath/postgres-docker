@@ -1,10 +1,12 @@
 version: "3.8"
 
 services:
-  db:
+  postgres-db:
     image: postgres:13.1-alpine
     env_file: .env
     restart: always
+    networks:
+      - db-network-private
     ports:
       - "5432:5432"
     volumes:
@@ -12,3 +14,7 @@ services:
 
 volumes:
   db-data:
+
+networks:
+  db-network-private:
+    external: true

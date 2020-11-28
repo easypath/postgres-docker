@@ -18,7 +18,7 @@
 
 - Launch the container:
   ```
-  docker-compose up -d
+  ./start-container.sh
   ```
 
 - Verify the database is up by connecting to it using an external client, i.e. [Postico](https://eggerapps.at/postico/)
@@ -31,6 +31,11 @@
 
 
 ## Miscellaneous
+- This docker-compose file creates a private Docker network locally called `db-network-private` - you can connect other containers directly to this network and the database will be available using the following connection string:
+  ```
+  postgresql://username:password@postgres-db:5432/database
+  ```
+
 - Install `psql` client on macOS:
   ```bash
   brew install libpq
