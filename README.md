@@ -23,6 +23,19 @@
 
 - Verify the database is up by connecting to it using an external client, i.e. [Postico](https://eggerapps.at/postico/)
 
+- Create a database user for the application:
+  ```sql
+  -- Uncomment if recreating role on existing instance
+  -- DROP OWNED BY app_user CASCADE;
+  DROP ROLE IF EXISTS app_user;
+  CREATE ROLE app_user WITH INHERIT LOGIN PASSWORD NULL;
+  GRANT CREATE ON DATABASE db_name TO app_user;
+  ALTER ROLE app_user WITH PASSWORD 'PASSWORD';
+  -- Uncomment if creating dedicated schema for app (you should be!)
+  -- Sets app user's default search path to app's schema
+  -- ALTER ROLE app_user SET search_path TO "app_schema","public";
+  ```
+
 - To stop the container and delete the associated volume:
   ```
   docker-compose down --volumes
